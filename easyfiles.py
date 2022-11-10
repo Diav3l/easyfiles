@@ -4,11 +4,9 @@ class easyfile:
 			file+='.txt'
 		self.file = file
 		try:
-			with open(self.file) as f:
-				pass
-		except (FileNotFoundError):
-			with open(self.file,'w') as f:
-				pass
+			open(self.file,'x')
+		except FileExistsError:
+			pass
 		
 	"""creates or appends fliles, intended to be user friendly"""
 	def append(self, content):
@@ -32,6 +30,7 @@ class easyfile:
 				lines.append(line.rstrip())
 		return(lines)
 
+	"""fills the file with random numbers that are proceded by designated content"""
 	def fill(self,content='',lower=0,upper=500,lines=100,seed=0):
 		import random
 		if seed:
@@ -42,6 +41,7 @@ class easyfile:
 				f.write(f"{content}{random.randrange(lower,upper)}\n")
 				i+=1
 
+	"""retruns array full of everything on a line after the specified content, can specify return datatype"""
 	def extract(self, content:str,datatype='str'):
 		lines=[]
 		with open(self.file,'r') as f:
