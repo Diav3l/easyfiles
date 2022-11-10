@@ -31,3 +31,29 @@ class easyfile:
 					continue
 				lines.append(line.rstrip())
 		return(lines)
+
+	def fill(self,content='',lower=0,upper=500,lines=100,seed=0):
+		import random
+		if seed:
+			random.seed(seed)
+		with open(self.file,"a") as f:
+			i=0
+			while i<lines:
+				f.write(f"{content}{random.randrange(lower,upper)}\n")
+				i+=1
+
+	def extract(self, content:str,datatype='str'):
+		lines=[]
+		with open(self.file,'r') as f:
+			for line in f:
+				if not content in line:
+					continue
+					
+				if datatype =='int' or datatype=='integer':
+					lines.append(int(line[len(content):].rstrip()))
+				elif datatype =='float':
+					lines.append(float(line[len(content):].rstrip()))
+				else:
+					lines.append(line[len(content):].rstrip())
+					
+		return(lines)
